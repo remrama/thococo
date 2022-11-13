@@ -1,0 +1,23 @@
+##
+## All scripts were run within a conda environment made from this file.
+##
+## OS  -----------  Windows 10, version 21H2, OS build 19044.2251
+## miniconda  ----  conda version 22.9.0
+##
+## $ conda env create --file environment.yaml
+##
+## See environment.txt for specifics (e.g., version numbers).
+##
+name: thococo
+dependencies:
+  - ipython                   # development
+  - conda-forge::tqdm         # progress bars
+  - numpy                     # data analysis
+  - pandas                    # data analysis
+  - scipy                     # data analysis
+  - scikit-learn              # data analysis
+  - conda-forge::pingouin     # data analysis - statistics
+  - conda-forge::spacy        # data analysis - text
+  - matplotlib                # data visualization
+  - seaborn                   # data visualization
+  - conda-forge::colorcet     # data visualization - colormaps

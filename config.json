@@ -1,0 +1,138 @@
+{
+
+    "source_directory": "../sourcedata",
+    "derivatives_directory": "../derivatives",
+
+    "corpora": {
+
+        "dreamviewsann": {
+            "LongName": "DreamViews Annotated",
+            "BriefDescription": "subset of DreamViews manually coded for non-lucid and lucid dream content",
+            "SourceName": "dreamviews_annotated",
+            "CorpusType": "dreaming",
+            "AuthorColumn": "report_id",
+            "TextColumn": "text",
+            "ColumnInfo": {
+                "report_id": "Unique author identifier",
+                "label": "dream, nonlucid dream, or lucid dream",
+                "text": "Entry text"
+            }
+        },
+
+        "hippocorpus": {
+            "LongName": "HippoCorpus",
+            "BriefDescription": "A dataset of 6,854 English diary-like short stories about recalled and imagined events",
+            "SourceName": "hippocorpus-u20220112.zip",
+            "AuthorColumn": "WorkerId",
+            "TextColumn": "story",
+            "CorpusType": "memory",
+            "ColumnInfo": {
+                "AssignmentId": "Unique ID of this story",
+                "WorkTimeInSeconds": "Time in seconds that it took the worker to do the entire HIT (reading instructions, storywriting, questions)",
+                "WorkerId": "Unique ID of the worker (random string, not MTurk worker ID)",
+                "annotatorAge": "Lower limit of the age bucket of the worker. Buckets are: 18-24, 25-29, 30-34, 35-39, 40-44, 45-49, 50-54, 55+",
+                "annotatorGender": "Gender of the worker",
+                "annotatorRace": "Race/ethnicity of the worker",
+                "distracted": "How distracted were you while writing your story? (5-point Likert)",
+                "draining": "How taxing/draining was writing for you emotionally? (5-point Likert)",
+                "frequency": "How often do you think about or talk about this event? (5-point Likert)",
+                "importance": "How impactful, important, or personal is this story/this event to you? (5-point Likert)",
+                "logTimeSinceEvent": "Log of time (days) since the recalled event happened",
+                "mainEvent": "Short phrase describing the main event described",
+                "memType": "Type of story (recalled, imagined, retold)",
+                "mostSurprising": "Short phrase describing what the most surpring aspect of the story was",
+                "openness": "Continuous variable representing the openness to experience of the worker",
+                "recAgnPairId": "ID of the recalled story that corresponds to this retold story (null for imagined stories). Group on this variable to get the recalled-retold pairs.",
+                "recImgPairId": "ID of the recalled story that corresponds to this imagined story (null for retold stories). Group on this variable to get the recalled-imagined pairs.",
+                "similarity": "How similar to your life does this event/story feel to you? (5-point Likert)",
+                "similarityReason": "Free text annotation of similarity",
+                "story": "Story about the imagined or recalled event (15-25 sentences)",
+                "stressful": "How stressful was this writing task? (5-point Likert)",
+                "summary": "Summary of the events in the story (1-3 sentences)",
+                "timeSinceEvent": "Time (num. days) since the recalled event happened"
+            }
+        },
+
+        "thoughtpings": {
+            "LongName": "Task-unrelated thoughts",
+            "BriefDescription": "An ecological momentary assessment of freely-moving and task-unrelated thoughts. Participants were 'pinged' via text message to answer probes throughout the day.",
+            "SourceName": "TextingStudy.csv",
+            "CorpusType": "mind-wandering",
+            "AuthorColumn": "user_id",
+            "TextColumn": "description",
+            "ColumnInfo": {
+                "user_id": "Unique author identifier",
+                "day": "D1, D2, D3, D4, or D5",
+                "interval": "T1, T2, or T3",
+                "cycle": "A or B",
+                "valence": "1-9",
+                "arousal": "1-9",
+                "off_task": "(Y)es or (N)o, participant reporting if they were involved in a task or not",
+                "wandering": "Likert scale 1-6, participant reporting how much they were mind-wandering",
+                "description": "Entry text"
+            }
+        },
+
+        "thinkaloud": {
+            "LongName": "Think-aloud",
+            "BriefDescription": "In this modified think-aloud task, participants sat at a computer with a blank screen in front of them and were told they could think about whatever they wanted. Every 2–3 min during the 30 min experimental session, they reported their most recent thought stream by typing on the computer in front of them. Each row is a 'thought unit' from a series, so combine to a whole report.",
+            "SourceName": "ItemLevel_Final.xlsx",
+            "CorpusType": "mind-wandering",
+            "AuthorColumn": "ID",
+            "TextColumn": "ThoughtText",
+            "ColumnInfo": {
+                "ID": "Unique author identifier",
+                "IDSegment": "Unique thought segment identifier",
+                "Condition": "City or To-Do list",
+                "ADHDNumSymptoms": "0-6",
+                "ADHDAvg": "",
+                "TrialNumber": "Unique trial identifier",
+                "ThoughtCountInSegment": "Unique thought within trial identifier",
+                "IDTrialThought": "Unique thought identifier",
+                "ThoughtText": "Entry text",
+                "AdjacentCohesion": "float",
+                "NO_TIME": "0 or 1",
+                "Present": "0 or 1",
+                "Past": "0 or 1",
+                "Future": "0 or 1",
+                "Random": "0 or 1",
+                "Currentconcern": "0 or 1",
+                "Episodic": "0 or 1",
+                "Semantic": "0 or 1",
+                "Perceptualstimulation": "0 or 1",
+                "Taskrelated": "0 or 1",
+                "Affect": "0 or 1",
+                "Positive": "0 or 1",
+                "Negative": "0 or 1",
+                "Simulation": "0 or 1",
+                "Desire": "0 or 1",
+                "Actor/Author": "0 or 1",
+                "SelfContent": "0 or 1"
+            }
+        },
+
+        "dreamviews": {
+            "LongName": "DreamViews",
+            "BriefDescription": "Scraped on October 9th, 2021. This is all the uncleaned dream reports.",
+            "SourceName": "dreamviews.tsv",
+            "CorpusType": "dreaming",
+            "AuthorColumn": "user_id",
+            "TextColumn": "post_txt",
+            "License": "",
+            "HowToAcknowledge": "",
+            "ReferencesAndLinks": [
+                "https://www.dreamviews.com/blogs"
+            ],
+            "ColumnInfo": {
+                "post_id": "Unique dream identifier",
+                "user_id": "Unique author identifier",
+                "timestamp": "Datetime of entry",
+                "lucidity": "Author-identified lucidity",
+                "nightmare": "Author-identified nightmare (True/False)",
+                "n_tokens": "Number of tokens in entry",
+                "post_lemmas": "Lemmatized dream report",
+                "post_txt": "Entry text"
+            }
+        }
+    }
+}
