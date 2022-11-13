@@ -37,10 +37,6 @@ elif corpus_id == "dreamviews":
     col = "lucidity"
     attr = attr.query("lucidity.isin(['lucid', 'non-lucid'])")
     order = ["non-lucid", "lucid"]
-elif corpus_id == "dreamviewsann":
-    col = "label"
-    attr = attr.query("label.isin(['lucid', 'nonlucid'])")
-    order = ["nonlucid", "lucid"]
 elif corpus_id == "hippocorpus":
     col = "memType"
     attr = attr.query("memType.isin(['recalled', 'imagined'])")

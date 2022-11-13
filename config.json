@@ -5,20 +5,6 @@
 
     "corpora": {
 
-        "dreamviewsann": {
-            "LongName": "DreamViews Annotated",
-            "BriefDescription": "subset of DreamViews manually coded for non-lucid and lucid dream content",
-            "SourceName": "dreamviews_annotated",
-            "CorpusType": "dreaming",
-            "AuthorColumn": "report_id",
-            "TextColumn": "text",
-            "ColumnInfo": {
-                "report_id": "Unique author identifier",
-                "label": "dream, nonlucid dream, or lucid dream",
-                "text": "Entry text"
-            }
-        },
-
         "hippocorpus": {
             "LongName": "HippoCorpus",
             "BriefDescription": "A dataset of 6,854 English diary-like short stories about recalled and imagined events",

@@ -73,30 +73,6 @@ def load_sourcedata(corpus_id, return_dataframe=True):
 
     if corpus_id == "dreamviews":
         corpus = pd.read_csv(import_path, sep="\t")
-    elif corpus_id == "dreamviewsann":
-        corp1_path = import_path / "posts-annotations.csv"
-        corp1 = pd.read_csv(corp1_path)
-        corp1 = corp1.dropna(subset="text")
-        corp1 = corp1.query("rater_id == 'hf24'") # or hacaldas
-        corp1 = corp1.query("label != 'nondream'")
-        corp1 = corp1.groupby(["report_id", "label"])["text"].sum()
-        corp2_data = []
-        for label in ["lucid", "nonlucid", "dream"]:
-            corp2_paths = (import_path / f"mannheim_reports-{label}").glob("*.txt")
-            for p in corp2_paths:
-                report_id = p.stem
-                with open(p, "r", encoding="utf-8") as f:
-                    txt = f.read()
-                if len(txt) > 30:
-                    corp2_data.append({
-                        "report_id": report_id,
-                        "label": label,
-                        "text": txt,
-                    })
-        corp2 = pd.DataFrame.from_records(corp2_data)
-        corp2 = corp2.set_index(["report_id", "label"]).squeeze("columns")
-        corpus = pd.concat([corp1, corp2], axis=0)
-        corpus = corpus.reset_index()
     elif corpus_id == "thinkaloud":
         corpus = pd.read_excel(import_path)
         # Minor corrections that aren't being used now, so pointless.
