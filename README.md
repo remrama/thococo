@@ -24,10 +24,10 @@ python source2txt.py --corpus dreamviews        #=> zips/dreamviews.zip
 ```
 
 ```bash
-python calc-scores.py -c thinkaloud             #=> corp-thinkaloud_scores.tsv
-python calc-scores.py -c thoughtpings           #=> corp-thoughtpings_scores.tsv
-python calc-scores.py -c hippocorpus            #=> corp-hippocorpus_scores.tsv
-python calc-scores.py -c dreamviews             #=> corp-dreamviews_scores.tsv
+python coherence.py -c thinkaloud               #=> corp-thinkaloud_scores.tsv
+python coherence.py -c thoughtpings             #=> corp-thoughtpings_scores.tsv
+python coherence.py -c hippocorpus              #=> corp-hippocorpus_scores.tsv
+python coherence.py -c dreamviews               #=> corp-dreamviews_scores.tsv
 
 python agg-scores.py                            #=> agg-auth_scores.tsv
                                                 #=> agg-corp_scores.tsv
