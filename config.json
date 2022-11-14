@@ -59,44 +59,6 @@
             }
         },
 
-        "thinkaloud": {
-            "LongName": "Think-aloud",
-            "BriefDescription": "In this modified think-aloud task, participants sat at a computer with a blank screen in front of them and were told they could think about whatever they wanted. Every 2–3 min during the 30 min experimental session, they reported their most recent thought stream by typing on the computer in front of them. Each row is a 'thought unit' from a series, so combine to a whole report.",
-            "SourceName": "ItemLevel_Final.xlsx",
-            "CorpusType": "mind-wandering",
-            "AuthorColumn": "ID",
-            "TextColumn": "ThoughtText",
-            "ColumnInfo": {
-                "ID": "Unique author identifier",
-                "IDSegment": "Unique thought segment identifier",
-                "Condition": "City or To-Do list",
-                "ADHDNumSymptoms": "0-6",
-                "ADHDAvg": "",
-                "TrialNumber": "Unique trial identifier",
-                "ThoughtCountInSegment": "Unique thought within trial identifier",
-                "IDTrialThought": "Unique thought identifier",
-                "ThoughtText": "Entry text",
-                "AdjacentCohesion": "float",
-                "NO_TIME": "0 or 1",
-                "Present": "0 or 1",
-                "Past": "0 or 1",
-                "Future": "0 or 1",
-                "Random": "0 or 1",
-                "Currentconcern": "0 or 1",
-                "Episodic": "0 or 1",
-                "Semantic": "0 or 1",
-                "Perceptualstimulation": "0 or 1",
-                "Taskrelated": "0 or 1",
-                "Affect": "0 or 1",
-                "Positive": "0 or 1",
-                "Negative": "0 or 1",
-                "Simulation": "0 or 1",
-                "Desire": "0 or 1",
-                "Actor/Author": "0 or 1",
-                "SelfContent": "0 or 1"
-            }
-        },
-
         "dreamviews": {
             "LongName": "DreamViews",
             "BriefDescription": "Scraped on October 9th, 2021. This is all the uncleaned dream reports.",

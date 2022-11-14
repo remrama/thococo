@@ -73,19 +73,6 @@ def load_sourcedata(corpus_id, return_dataframe=True):
 
     if corpus_id == "dreamviews":
         corpus = pd.read_csv(import_path, sep="\t")
-    elif corpus_id == "thinkaloud":
-        corpus = pd.read_excel(import_path)
-        # Minor corrections that aren't being used now, so pointless.
-        corpus = corpus.rename(columns={"Past ": "Past", "Past _NextThought": "Past_NextThought"})
-        corpus["Random"] = corpus["Random"].replace({
-                9: 0, # assuming bc buttons are close
-            })
-        corpus["ThoughtText"] = corpus["ThoughtText"].astype(str)
-        corpus["ThoughtText"] = corpus["ThoughtText"].str.strip()
-        # corpus = corpus.query("Taskrelated == 0")
-        corpus = corpus.groupby(["ID", "TrialNumber"])["ThoughtText"].apply(". ".join)
-        # corpus = corpus.groupby("ID")["ThoughtText"].apply(". ".join)
-        corpus = corpus.reset_index(drop=False)
     elif corpus_id == "thoughtpings":
         corpus = pd.read_csv(import_path)
     elif corpus_id == "hippocorpus":
