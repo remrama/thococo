@@ -7,7 +7,7 @@
 
         "hippocorpus": {
             "LongName": "HippoCorpus",
-            "BriefDescription": "A dataset of 6,854 English diary-like short stories about recalled and imagined events",
+            "BriefDescription": "A dataset of 6,854 English diary-like short stories about recalled and imagined events.",
             "SourceName": "hippocorpus-u20220112.zip",
             "AuthorColumn": "WorkerId",
             "TextColumn": "story",

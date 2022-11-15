@@ -105,7 +105,11 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
 
             # Loop over each noun chunk of the current document.
             # for n in doc:
-            for n in doc.sents:
+            if corpus_id == "thoughtpings":
+                phrases = doc.noun_chunks
+            else:
+                phrases = doc.sents
+            for n in phrases:
                 # Check if more than one noun chunk passes token filtering.
                 if (subgroup_vectors := [ t.vector for t in n if token_filter(t) ]):
                 # if (subgroup_vectors := [ t.vector for t in n if t.has_vector ]):
@@ -129,11 +133,11 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
                 # w2w = np.array([ distance.cosine(x,y) for x, y in zip(arr[1:], arr[:-1]) ])
 
                 coh_scores = {}
-                coh_scores["SequentialCoherenceN"] = w2w.size # number of coherence values (or 1 less than number of chunks)
-                coh_scores["SequentialCoherenceMean"] = w2w.mean()
-                coh_scores["SequentialCoherenceVar"] = w2w.var()
-                coh_scores["SequentialCoherenceMin"] = w2w.min()
-                coh_scores["SequentialCoherenceMax"] = w2w.max()
+                coh_scores["CoherenceN"] = w2w.size # number of coherence values (or 1 less than number of chunks)
+                coh_scores["CoherenceMean"] = w2w.mean()
+                coh_scores["CoherenceVar"] = w2w.var()
+                coh_scores["CoherenceMin"] = w2w.min()
+                coh_scores["CoherenceMax"] = w2w.max()
                 coh_scores_list = [ coh_scores[m] for m in coherence_metrics ]
 
                 datarow = context + length_scores_list + coh_scores_list

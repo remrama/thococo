@@ -12,7 +12,7 @@ plt.ion()
 
 corpus_id = "thoughtpings"
 attribute = "wandering"
-scorer = "SequentialCoherenceMean"
+scorer = "CoherenceMean"
 
 # Declare filepaths.
 deriv_dir = Path(utils.config["derivatives_directory"])

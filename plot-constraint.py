@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 corpus_id = args.corpus
 
-metric = "SequentialCoherenceMean"
+metric = "CoherenceMean"
 
 deriv_dir = Path(utils.config["derivatives_directory"])
 export_path = deriv_dir / f"corp-{corpus_id}_constraint.png"
