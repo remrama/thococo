@@ -1,6 +1,5 @@
 """
 Test the relationship between self-reported mind-wandering and semantic coherence.
-Data comes from Mills et al., 2021, Emotion.
 
 Exports 3 files:
     - correlation statistics in a tsv file
@@ -15,13 +14,13 @@ import matplotlib.pyplot as plt
 import pingouin as pg
 import seaborn as sns
 
-sns.set_style("white")
+utils.load_matplotlib_settings()
 
 # Declare filepaths.
 deriv_dir = Path(utils.config["derivatives_directory"])
 import_path = deriv_dir / "corp-thoughtpings_scores.tsv"
-export_path_stat = deriv_dir / "corp-thoughtpings_mw-stat.tsv"
-export_path_plot = deriv_dir / "corp-thoughtpings_mw-plot.png"
+export_path_stat = deriv_dir / "corp-thoughtpings_corr.tsv"
+export_path_plot = deriv_dir / "corp-thoughtpings_corr.png"
 
 # Load data.
 df = pd.read_csv(import_path, sep="\t")
@@ -31,18 +30,27 @@ df = df.merge(attr, on=["corpus_id", "author_id", "entry_id"], how="inner")
 
 # Run repeated-measures correlation.
 stat = pg.rm_corr(data=df, x="wandering", y="CoherenceMean", subject="author_id")
-r, p = stat.loc["rm_corr", ["r", "pval"]]
 
 # Plot repeated-measures correlation.
-g = pg.plot_rm_corr(data=df, x="wandering", y="CoherenceMean", subject="author_id",
-    kwargs_facetgrid=dict(height=3, aspect=1, palette="cubehelix"))
+g = pg.plot_rm_corr(
+    data=df, x="wandering", y="CoherenceMean", subject="author_id",
+    kwargs_facetgrid=dict(
+        height=2.5, aspect=1,
+        palette="cubehelix",
+        despine=False,
+    )
+)
 g.ax.set_xticks(range(1, 7))
 g.ax.set_xlabel("Self-reported Mind-wandering")
 g.ax.set_ylabel("Semantic coherence")
+g.ax.yaxis.set(major_locator=plt.MultipleLocator(.2))
+g.ax.margins(.1)
 
 # Draw resulting statistics on the plot.
-txt = f"r = {r:.2f}\np = {p:.3f}"
-g.ax.text(.99, .99, txt, transform=g.ax.transAxes, ha="right", va="top")
+r, p = stat.loc["rm_corr", ["r", "pval"]]
+asterisks = "*" * sum( p<cutoff for cutoff in [.05, .01, .001] )
+stat_txt = asterisks + fr"$r$ = {r:.2f}".replace("0.", ".")
+g.ax.text(.95, .05, stat_txt, va="bottom", ha="right", transform=g.ax.transAxes)
 
 # Export.
 stat.to_csv(export_path_stat, index_label="method", sep="\t")

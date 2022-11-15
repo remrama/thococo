@@ -1,4 +1,13 @@
 """
+Test the relationship between semantic coherence
+and other cognitive stuff from different datasets.
+
+Two-way test is paired if dataset allows it.
+
+Exports 3 files:
+    - two-way statistics in a tsv file
+    - two-way plot in a png file
+    - two-way plot in a pdf file
 """
 import argparse
 from pathlib import Path
@@ -7,8 +16,9 @@ import utils
 
 import matplotlib.pyplot as plt
 import pingouin as pg
-import seaborn as sns
 
+
+utils.load_matplotlib_settings()
 
 
 parser = argparse.ArgumentParser()
@@ -35,8 +45,8 @@ elif corpus_id == "hippocorpus":
 
 
 deriv_dir = Path(utils.config["derivatives_directory"])
-export_path_stat = deriv_dir / f"corp-{corpus_id}_twoway.tsv"
-export_path_plot = deriv_dir / f"corp-{corpus_id}_twoway.png"
+export_path_stat = deriv_dir / f"corp-{corpus_id}_2way.tsv"
+export_path_plot = deriv_dir / f"corp-{corpus_id}_2way.png"
 
 df = pd.read_csv(deriv_dir / f"corp-{corpus_id}_scores.tsv", sep="\t")
 _, _, attr = utils.load_zipped_corpus_info(corpus_id)
@@ -111,10 +121,11 @@ ax.set_ylabel("Semantic coherence")
 significance_bars(ax, x1=0, x2=1, y=.9, p=p, height=.02, caplength=None, linewidth=1)
 
 ax.margins(x=.5, y=.5)
-ax.grid(False)
-ax.tick_params(top=False, right=False, direction="out", axis="both")
+# ax.grid(False)
+ax.tick_params(axis="both", which="both", top=False, right=False, direction="out")
 ax.spines[["top", "right"]].set_visible(False)
-# ax.yaxis.set(major_locator=plt.MultipleLocator(.01))
+ax.yaxis.set(major_locator=plt.MultipleLocator(.04),
+             minor_locator=plt.MultipleLocator(.01))
 
 
 # Export.

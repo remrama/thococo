@@ -40,7 +40,7 @@
         },
 
         "thoughtpings": {
-            "LongName": "Task-unrelated thoughts",
+            "LongName": "Experience Sampling",
             "BriefDescription": "An ecological momentary assessment of freely-moving and task-unrelated thoughts. Participants were 'pinged' via text message to answer probes throughout the day.",
             "SourceName": "TextingStudy.csv",
             "CorpusType": "mind-wandering",
