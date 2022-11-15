@@ -10,6 +10,7 @@ from pathlib import Path
 import pandas as pd
 import utils
 
+import colorcet as cc
 import matplotlib.pyplot as plt
 import pingouin as pg
 import seaborn as sns
@@ -32,11 +33,13 @@ df = df.merge(attr, on=["corpus_id", "author_id", "entry_id"], how="inner")
 stat = pg.rm_corr(data=df, x="wandering", y="CoherenceMean", subject="author_id")
 
 # Plot repeated-measures correlation.
+palette = cc.cm.glasbey_dark(range(df["author_id"].nunique()))
+# palette = cc.cm.glasbey_cool(range(df["author_id"].nunique()))
 g = pg.plot_rm_corr(
     data=df, x="wandering", y="CoherenceMean", subject="author_id",
     kwargs_facetgrid=dict(
         height=2.5, aspect=1,
-        palette="cubehelix",
+        palette=palette,
         despine=False,
     )
 )
@@ -50,7 +53,7 @@ g.ax.margins(.1)
 r, p = stat.loc["rm_corr", ["r", "pval"]]
 asterisks = "*" * sum( p<cutoff for cutoff in [.05, .01, .001] )
 stat_txt = asterisks + fr"$r$ = {r:.2f}".replace("0.", ".")
-g.ax.text(.95, .05, stat_txt, va="bottom", ha="right", transform=g.ax.transAxes)
+g.ax.text(.95, .88, stat_txt, va="top", ha="right", transform=g.ax.transAxes)
 
 # Export.
 stat.to_csv(export_path_stat, index_label="method", sep="\t")

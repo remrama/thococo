@@ -74,16 +74,7 @@ else:
 
 
 labels = utils.load_corpus_labels()
-
-# corpus_types = utils.load_corpus_types()
-# types_palette = utils.load_types_palette()
-# palette = { c: types_palette[corpus_types[c]] for c in corpus_order }
-palette = utils.load_corpus_palette()
-
-# df["label"] = df["corpus_id"].map(labels_map)
-# df["ctype"] = df["corpus_id"].map(types_map)
-# df["color"] = df["ctype"].map(palette_map)
-
+color = "#091A60"
 
 
 FIGSIZE = (2, 2)
@@ -109,7 +100,6 @@ def significance_bars(ax, x1, x2, y, p, height=.1, linewidth=1, caplength=None):
 # Extract relevant data.
 descr = table[label_order].agg(["count", "mean", "sem"]).T
 descr["xval"] = range(len(label_order))
-color = palette[corpus_id]
 ax.errorbar("xval", "mean", fmt="-", yerr="sem", linewidth=.5, color=color, data=descr.loc[label_order])
 ax.scatter("xval", "mean", marker="s", s=20, color=color, data=descr.loc[label_order])
 
