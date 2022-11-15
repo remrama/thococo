@@ -17,7 +17,7 @@ import utils
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-c", "--corpus", type=str, required=True, choices=set(utils.config["corpora"]))
+parser.add_argument("-c", "--corpus", type=str, required=True, choices=utils.config["corpora"])
 parser.add_argument("-o", "--overwrite", action="store_true", help="Overwrite standard file output if it already exists.")
 args = parser.parse_args()
 
@@ -38,11 +38,11 @@ length_metrics = [
     "Nsentences",
 ]
 coherence_metrics = [
-    "SequentialCoherenceN",
-    "SequentialCoherenceMean",
-    "SequentialCoherenceVar",
-    "SequentialCoherenceMin",
-    "SequentialCoherenceMax",
+    "CoherenceN",
+    "CoherenceMean",
+    "CoherenceVar",
+    "CoherenceMin",
+    "CoherenceMax",
 ]
 
 column_names = id_headers + length_metrics + coherence_metrics
