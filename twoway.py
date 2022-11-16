@@ -30,7 +30,7 @@ args = parser.parse_args()
 
 corpus_id = args.corpus
 
-metric = "CoherenceMean"
+metric = "IncoherenceMean"
 
 
 if corpus_id == "thoughtpings":
@@ -124,7 +124,7 @@ ax.errorbar(xvals, yvals, fmt="-s", yerr=yerrs, color="#091A60", linewidth=.5, m
 ax.set_xticks(xvals)
 ax.set_xticklabels(label_order)
 ax.set_xlabel(xlabel)
-ax.set_ylabel("Semantic coherence")
+ax.set_ylabel("Thought variability")
 
 # Significance bars.
 p = stat.loc[method, "p-val"]

@@ -8,7 +8,7 @@ import zipfile
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import cosine_distances
 import spacy
 from tqdm import tqdm
 
@@ -38,17 +38,17 @@ length_metrics = [
     "Nsentences",
 ]
 coherence_metrics = [
-    "CoherenceN",
-    "CoherenceMean",
-    "CoherenceVar",
-    "CoherenceMin",
-    "CoherenceMax",
+    "IncoherenceN",
+    "IncoherenceMean",
+    "IncoherenceVar",
+    "IncoherenceMin",
+    "IncoherenceMax",
 ]
 
 column_names = id_headers + length_metrics + coherence_metrics
 
 batch_size = 500
-pbar_kwargs = dict(desc=f"Coherence {corpus_id}")
+pbar_kwargs = dict(desc=f"Incoherence {corpus_id}")
 pipe_kwargs = dict(batch_size=batch_size, as_tuples=True, n_process=1)
 
 lang_model = "en_core_web_lg"
@@ -129,15 +129,15 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
 
                 # Stack vectors and get similarities
                 arr = np.row_stack(vectors)
-                w2w = cosine_similarity(arr).diagonal(offset=1)
+                w2w = cosine_distances(arr).diagonal(offset=1)
                 # w2w = np.array([ distance.cosine(x,y) for x, y in zip(arr[1:], arr[:-1]) ])
 
                 coh_scores = {}
-                coh_scores["CoherenceN"] = w2w.size # number of coherence values (or 1 less than number of chunks)
-                coh_scores["CoherenceMean"] = w2w.mean()
-                coh_scores["CoherenceVar"] = w2w.var()
-                coh_scores["CoherenceMin"] = w2w.min()
-                coh_scores["CoherenceMax"] = w2w.max()
+                coh_scores["IncoherenceN"] = w2w.size # number of coherence values (or 1 less than number of chunks)
+                coh_scores["IncoherenceMean"] = w2w.mean()
+                coh_scores["IncoherenceVar"] = w2w.var()
+                coh_scores["IncoherenceMin"] = w2w.min()
+                coh_scores["IncoherenceMax"] = w2w.max()
                 coh_scores_list = [ coh_scores[m] for m in coherence_metrics ]
 
                 datarow = context + length_scores_list + coh_scores_list
