@@ -30,10 +30,10 @@ python agg-scores.py                            #=> agg-auth_scores.tsv & agg-co
 python plot-samplesize.py                       #=> agg-corp_samplesize.png/pdf
 
 # Run binned comparison within each dataset.
-python compare.py --corpus thoughtpings         #=> corp-thoughtpings_stat-wilc.tsv/png/pdf
-python compare.py --corpus hippocorpus          #=> corp-hippocorpus_stat-mwu.tsv/png/pdf
-python compare.py --corpus dreamviews           #=> corp-dreamviews_stat-wilc.tsv/png/pdf
+python twoway.py --corpus thoughtpings          #=> corp-thoughtpings_2way.tsv/png/pdf
+python twoway.py --corpus hippocorpus           #=> corp-hippocorpus_2way.tsv/png/pdf
+python twoway.py --corpus dreamviews            #=> corp-dreamviews_2way.tsv/png/pdf
 
 # Correlate coherence with self-reported mind-wandering in the thoughtpings dataset.
-python mindwandering-correlation.py             #=> corp-thoughtpings_stat-corr.tsv/png/pdf
+python correlation.py                           #=> corp-thoughtpings_corr.tsv/png/pdf
 ```
