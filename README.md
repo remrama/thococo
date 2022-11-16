@@ -21,9 +21,9 @@ python source2txt.py --corpus hippocorpus       #=> zips/hippocorpus.zip
 python source2txt.py --corpus dreamviews        #=> zips/dreamviews.zip
 
 # Get semantic coherence scores.
-python coherence.py -c thoughtpings             #=> corp-thoughtpings_scores.tsv
-python coherence.py -c hippocorpus              #=> corp-hippocorpus_scores.tsv
-python coherence.py -c dreamviews               #=> corp-dreamviews_scores.tsv
+python coherence.py --corpus thoughtpings       #=> corp-thoughtpings_scores.tsv
+python coherence.py --corpus hippocorpus        #=> corp-hippocorpus_scores.tsv
+python coherence.py --corpus dreamviews         #=> corp-dreamviews_scores.tsv
 
 # Visualize sample sizes.
 python agg-scores.py                            #=> agg-auth_scores.tsv & agg-corp_scores.tsv
