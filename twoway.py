@@ -94,7 +94,7 @@ stat["sem(a)"] = sem(a)
 stat["sem(b)"] = sem(b)
 
 
-FIGSIZE = (2, 2)
+FIGSIZE = (1.5, 2)
 fig, ax = plt.subplots(figsize=FIGSIZE, constrained_layout=True)
 
 def significance_bars(ax, x1, x2, y, p, height=.1, linewidth=1, caplength=None):

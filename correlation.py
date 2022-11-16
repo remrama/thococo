@@ -40,15 +40,19 @@ palette = cc.cm.glasbey_dark(range(df["author_id"].nunique()))
 g = pg.plot_rm_corr(
     data=df, x="wandering", y="IncoherenceMean", subject="author_id",
     kwargs_facetgrid=dict(
-        height=2.5, aspect=1,
+        height=2, aspect=1,
         palette=palette,
         despine=False,
     )
 )
 g.ax.set_xticks(range(1, 7))
-g.ax.set_xlabel("Self-reported Mind-wandering")
+g.ax.set_xlabel("Mind-wandering")
 g.ax.set_ylabel("Thought variability")
-g.ax.yaxis.set(major_locator=plt.MultipleLocator(.2))
+g.ax.yaxis.set(major_locator=plt.MultipleLocator(.5),
+               minor_locator=plt.MultipleLocator(.1))
+g.ax.xaxis.set(major_locator=plt.FixedLocator([1, 6]),
+               minor_locator=plt.MultipleLocator(1))
+# g.ax.tick_params(top=False, bottom=False)
 g.ax.margins(.1)
 g.ax.grid(False)
 
