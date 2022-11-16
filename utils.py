@@ -103,7 +103,7 @@ def load_matplotlib_settings():
     plt.rcParams["ytick.labelsize"] = 8
     plt.rcParams["axes.linewidth"] = 0.8 # edge line width
     plt.rcParams["axes.axisbelow"] = True
-    # plt.rcParams["axes.grid"] = True
+    plt.rcParams["axes.grid"] = True
     plt.rcParams["axes.grid.axis"] = "y"
     plt.rcParams["axes.grid.which"] = "major"
     plt.rcParams["axes.labelpad"] = 4

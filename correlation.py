@@ -50,6 +50,7 @@ g.ax.set_xlabel("Self-reported Mind-wandering")
 g.ax.set_ylabel("Semantic coherence")
 g.ax.yaxis.set(major_locator=plt.MultipleLocator(.2))
 g.ax.margins(.1)
+g.ax.grid(False)
 
 # Draw resulting statistics on the plot.
 r, p = stat.loc["rm_corr", ["r", "pval"]]

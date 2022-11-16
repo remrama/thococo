@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pingouin as pg
+from scipy.stats import sem
 
 import utils
 
@@ -33,18 +34,26 @@ metric = "CoherenceMean"
 
 
 if corpus_id == "thoughtpings":
+    xlabel = "Waking"
     column_of_interest = "off_task"
     label_order = ["off-task", "on-task"]
-    repeated_measures = True
+    method = "Wilcoxon"
+    major_yloc = .05
+    minor_yloc = .01
 elif corpus_id == "dreamviews":
+    xlabel = "Dreaming"
     column_of_interest = "lucidity"
     label_order = ["non-lucid", "lucid"]
-    repeated_measures = True
+    method = "Wilcoxon"
+    major_yloc = .005
+    minor_yloc = .001
 elif corpus_id == "hippocorpus":
+    xlabel = "Writing"
     column_of_interest = "memType"
     label_order = ["imagined", "recalled"]
-    repeated_measures = False
-
+    method = "MWU"
+    major_yloc = .01
+    minor_yloc = .002
 
 deriv_dir = Path(utils.config["derivatives_directory"])
 export_path_stat = deriv_dir / f"corp-{corpus_id}_2way.tsv"
@@ -64,16 +73,15 @@ table = avg.unstack(0)
 
 
 ## Run stats.
-if repeated_measures:
+if method == "Wilcoxon":
     table = table.dropna()
     a, b = table[label_order].T.values
     stat = pg.wilcoxon(a, b)
-    p = stat.loc["Wilcoxon", "p-val"]
-else:
-    a, b = table[label_order].T
-    a, b = a.dropna().values, b.dropna().values
+elif method == "MWU":
+    a, b = table[label_order].T.values
+    a = a[np.isfinite(a)] 
+    b = b[np.isfinite(b)] 
     stat = pg.mwu(a, b)
-    p = stat.loc["MWU", "p-val"]
 stat["n(a)"] = a.size
 stat["n(b)"] = b.size
 stat["mean(a)"] = a.mean()
@@ -82,10 +90,8 @@ stat["median(a)"] = np.quantile(a, .5)
 stat["median(b)"] = np.quantile(b, .5)
 stat["std(a)"] = a.std(ddof=1)
 stat["std(b)"] = b.std(ddof=1)
-
-
-labels = utils.load_corpus_labels()
-color = "#091A60"
+stat["sem(a)"] = sem(a)
+stat["sem(b)"] = sem(b)
 
 
 FIGSIZE = (2, 2)
@@ -109,25 +115,28 @@ def significance_bars(ax, x1, x2, y, p, height=.1, linewidth=1, caplength=None):
             ha="center", va="bottom", transform=ax.get_xaxis_transform())
 
 # Extract relevant data.
-descr = table[label_order].agg(["count", "mean", "sem"]).T
-descr["xval"] = range(len(label_order))
-ax.errorbar("xval", "mean", fmt="-", yerr="sem", linewidth=.5, color=color, data=descr.loc[label_order])
-ax.scatter("xval", "mean", marker="s", s=20, color=color, data=descr.loc[label_order])
+xvals = range(len(label_order))
+yvals = stat.loc[method, ["mean(a)", "mean(b)"]]
+yerrs = stat.loc[method, ["sem(a)", "sem(b)"]]
 
-ax.set_xticks(range(len(label_order)))
+# Plot.
+ax.errorbar(xvals, yvals, fmt="-s", yerr=yerrs, color="#091A60", linewidth=.5, ms=6)
+ax.set_xticks(xvals)
 ax.set_xticklabels(label_order)
-ax.set_xlabel(labels[corpus_id])
+ax.set_xlabel(xlabel)
 ax.set_ylabel("Semantic coherence")
 
+# Significance bars.
+p = stat.loc[method, "p-val"]
 significance_bars(ax, x1=0, x2=1, y=.9, p=p, height=.02, caplength=None, linewidth=1)
 
+# More aesthetics.
 ax.margins(x=.5, y=.5)
-# ax.grid(False)
-ax.tick_params(axis="both", which="both", top=False, right=False, direction="out")
-ax.spines[["top", "right"]].set_visible(False)
-ax.yaxis.set(major_locator=plt.MultipleLocator(.04),
-             minor_locator=plt.MultipleLocator(.01))
-
+ax.tick_params(axis="x", which="both", direction="out", top=False)
+# ax.tick_params(axis="both", which="both", top=False, right=False, direction="out")
+# ax.spines[["top", "right"]].set_visible(False)
+ax.yaxis.set(major_locator=plt.MultipleLocator(major_yloc),
+             minor_locator=plt.MultipleLocator(minor_yloc))
 
 # Export.
 stat.to_csv(export_path_stat, index_label="method", sep="\t")
