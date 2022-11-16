@@ -28,9 +28,11 @@ df = pd.read_csv(import_path, sep="\t")
 _, _, attr = utils.load_zipped_corpus_info("thoughtpings")
 attr = attr.dropna(subset="wandering")
 df = df.merge(attr, on=["corpus_id", "author_id", "entry_id"], how="inner")
+df = df.dropna(subset=["author_id", "wandering", "CoherenceMean"])
 
 # Run repeated-measures correlation.
 stat = pg.rm_corr(data=df, x="wandering", y="CoherenceMean", subject="author_id")
+stat["n"] = df["author_id"].nunique()
 
 # Plot repeated-measures correlation.
 palette = cc.cm.glasbey_dark(range(df["author_id"].nunique()))

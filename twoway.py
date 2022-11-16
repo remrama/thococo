@@ -11,11 +11,13 @@ Exports 3 files:
 """
 import argparse
 from pathlib import Path
-import pandas as pd
-import utils
 
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import pingouin as pg
+
+import utils
 
 
 utils.load_matplotlib_settings()
@@ -68,9 +70,18 @@ if repeated_measures:
     stat = pg.wilcoxon(a, b)
     p = stat.loc["Wilcoxon", "p-val"]
 else:
-    a, b = table[label_order].T.values
+    a, b = table[label_order].T
+    a, b = a.dropna().values, b.dropna().values
     stat = pg.mwu(a, b)
     p = stat.loc["MWU", "p-val"]
+stat["n(a)"] = a.size
+stat["n(b)"] = b.size
+stat["mean(a)"] = a.mean()
+stat["mean(b)"] = b.mean()
+stat["median(a)"] = np.quantile(a, .5)
+stat["median(b)"] = np.quantile(b, .5)
+stat["std(a)"] = a.std(ddof=1)
+stat["std(b)"] = b.std(ddof=1)
 
 
 labels = utils.load_corpus_labels()
