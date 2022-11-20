@@ -71,7 +71,7 @@ def load_sourcedata(corpus_id, return_dataframe=True):
     if not return_dataframe:
         return metadata
 
-    if corpus_id == "dreamviews":
+    if corpus_id in ["dreamviews", "gutenberg"]:
         corpus = pd.read_csv(import_path, sep="\t")
     elif corpus_id == "thoughtpings":
         corpus = pd.read_csv(import_path)

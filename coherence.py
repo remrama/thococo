@@ -47,7 +47,7 @@ coherence_metrics = [
 
 column_names = id_headers + length_metrics + coherence_metrics
 
-batch_size = 500
+batch_size = 1 if corpus_id.startswith("gutenberg") else 500
 pbar_kwargs = dict(desc=f"Incoherence {corpus_id}")
 pipe_kwargs = dict(batch_size=batch_size, as_tuples=True, n_process=1)
 

@@ -5,6 +5,21 @@
 
     "corpora": {
 
+        "gutenberg": {
+            "LongName": "Standardized Project Gutenberg Corpus",
+            "BriefDescription": "Project Gutenberg is public domain stuff, this is a corpus of that but minimally preprocessed.",
+            "SourceName": "gutenberg.tsv",
+            "AuthorColumn": "author",
+            "TextColumn": "text",
+            "ColumnInfo": {
+                "id": "Unique book ID from Standardized PG Corpus",
+                "title": "Book title",
+                "author": "Author name",
+                "shuffle_rate": "Proportion of sentences randomly shuffled",
+                "text": "Book text"
+            }
+        },
+
         "hippocorpus": {
             "LongName": "HippoCorpus",
             "BriefDescription": "A dataset of 6,854 English diary-like short stories about recalled and imagined events.",

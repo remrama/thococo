@@ -16,6 +16,7 @@ dependencies:
   - pandas                    # data analysis
   - scipy                     # data analysis
   - scikit-learn              # data analysis
+  - nltk                      # data analysis - testing
   - conda-forge::pingouin     # data analysis - statistics
   - conda-forge::spacy        # data analysis - text
   - matplotlib                # data visualization
