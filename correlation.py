@@ -46,7 +46,8 @@ g = pg.plot_rm_corr(
     )
 )
 g.ax.set_xticks(range(1, 7))
-g.ax.set_xlabel("Mind-wandering")
+# g.ax.set_xlabel(r"More$\leftarrow$Mind-wandering$\rightarrow$Less")
+g.ax.set_xlabel("Mind-wandering\n" + r"More $\longleftrightarrow$ Less", labelpad=-4)
 g.ax.set_ylabel("Thought variability")
 g.ax.yaxis.set(major_locator=plt.MultipleLocator(.5),
                minor_locator=plt.MultipleLocator(.1))
@@ -55,12 +56,13 @@ g.ax.xaxis.set(major_locator=plt.FixedLocator([1, 6]),
 # g.ax.tick_params(top=False, bottom=False)
 g.ax.margins(.1)
 g.ax.grid(False)
+g.ax.invert_xaxis()
 
 # Draw resulting statistics on the plot.
 r, p = stat.loc["rm_corr", ["r", "pval"]]
 asterisks = "*" * sum( p<cutoff for cutoff in [.05, .01, .001] )
 stat_txt = asterisks + fr"$r$ = {r:.2f}".replace("0.", ".")
-g.ax.text(.95, .1, stat_txt, va="bottom", ha="right", transform=g.ax.transAxes)
+g.ax.text(.5, .95, stat_txt, va="top", ha="center", transform=g.ax.transAxes)
 
 # Export.
 stat.to_csv(export_path_stat, index_label="method", sep="\t")
