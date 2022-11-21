@@ -23,28 +23,18 @@ import_path = gutenberg_dir / "metadata" / "metadata.csv"
 export_path = source_dir / "gutenberg.tsv"
 
 book_ids = [
-    "PG11", # Alice in Wonderland
-    "PG10", # King James Bible
-    "PG2701", # Moby Dick
-    "PG26", # Paradise Lost
-    "PG1342", # Pride and Prejudice
-    "PG84", # Frankenstein
-    "PG345", # Dracula
-    "PG43", # The Strange Case of Dr. Jekyll and Mr. Hyde
-    "PG64317", # The Great Gatsby
-    "PG219", # Heart of Darkness
-    "PG205", # Walden, and On The Duty Of Civil Disobedience
-    "PG16", # Peter Pan
-    "PG3296", # The Confessions of St. Augustine
-    "PG36", # The War of the Worlds
-    "PG1228", # On the Origin of Species
-    "PG2680", # Meditations
-    "PG5230", # The Invisible Man: A Grotesque Romance
-    "PG10615", # An Essay Concerning Humane Understanding
-    "PG932", # The Fall of the House of Usher
-    "PG45315", # The Marriage of Heaven and Hell
-    "PG164", # Twenty Thousand Leagues under the Sea
-    "PG10148", # The Merry Adventures of Robin Hood
+    "PG1342", # Pride and Prejudice - Jane Austen
+    "PG345", # Dracula - Bram Stoker
+    "PG219", # Heart of Darkness - Joseph Conrad
+    "PG164", # Twenty Thousand Leagues under the Sea - Jules Verne
+    "PG10148", # The Merry Adventures of Robin Hood - Howard Pyle
+    "PG1400", # Great Expectations - Charles Dickens
+    "PG25344", # The Scarlet Letter - Nathaniel Hawthorne
+    "PG394", # Cranford - Elizabeth Cleghorn Gaskell
+    "PG2500", # Siddhartha - Hermann  Hesse
+    "PG140", # The Jungle - Upton Sinclair
+    "PG215", # The Call of the Wild - Jack London
+    "PG19942", # Candide - Voltaire
 ]
 
 df = pd.read_csv(import_path)
@@ -60,7 +50,6 @@ def get_book_text(bookid):
         return pd.NA
 
 df["rawtext"] = df["id"].map(get_book_text)
-
 
 df = df.dropna(subset="rawtext")
 

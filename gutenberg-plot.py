@@ -26,12 +26,8 @@ df = df.merge(attr, on=["corpus_id", "author_id", "entry_id"], how="inner")
 book_id_column = "title" # will be used for legend
 
 df["title"] = df["title"].replace({
-    "On the Origin of Species By Means of Natural Selection: Or, the Preservation of Favoured Races in the Struggle for Life" : "On the Origin of Species",
-    "An Essay Concerning Humane Understanding, Volume 1: MDCXC, Based on the 2nd Edition, Books 1 and 2" : "An Essay Concerning Human Understanding",
-    "The Invisible Man: A Grotesque Romance" : "The Invisible Man",
-    "Walden, and On The Duty Of Civil Disobedience": "Walden",
-    "Twenty Thousand Leagues under the Sea": "20,000 Leagues under the Sea",
-    # "The Merry Adventures of Robin Hood": "Robin Hood",
+    "Twenty Thousand Leagues under the Sea": "20,000 Leagues",
+    "The Merry Adventures of Robin Hood": "Robin Hood",
 })
 
 
@@ -49,7 +45,7 @@ markers = { book: all_markers[i] for i, book in enumerate(df[book_id_column].uni
 
 # Plot.
 
-fig, ax = plt.subplots(figsize=(5, 3))
+fig, ax = plt.subplots(figsize=(2.7, 2))
 
 for book_id, book_df in df.groupby(book_id_column):
     book_df = book_df.sort_values("shuffle_rate")
@@ -58,27 +54,29 @@ for book_id, book_df in df.groupby(book_id_column):
     yvals = book_df["IncoherenceMean"].to_numpy()
     # fmt = f"-{m}"
     ax.plot(xvals, yvals, marker=m, label=book_id,
-        mew=1, lw=1, ms=6, color="black", mec="black", mfc="white")
+        mew=.5, lw=.5, ms=4, color="black", mec="black", mfc="white")
 
-ax.set_ylabel("Semantic incoherence")
+ax.set_ylabel("Though variability\n(semantic incoherence)")
 ax.set_xlabel("Shuffle rate")
 ax.margins(x=.1)
-ax.set_ylim(.2, .7)
-ax.xaxis.set(major_locator=plt.FixedLocator(shuffle_rates))
-ax.yaxis.set(major_locator=plt.MultipleLocator(.1),
-             minor_locator=plt.MultipleLocator(.02))
+ax.set_ylim(.43, .61)
+# ax.xaxis.set(major_locator=plt.FixedLocator(shuffle_rates))
+ax.xaxis.set(major_locator=plt.MultipleLocator(.5),
+             minor_locator=plt.MultipleLocator(.1))
+ax.yaxis.set(major_locator=plt.MultipleLocator(.05),
+             minor_locator=plt.MultipleLocator(.01))
 
 handles = [ plt.matplotlib.lines.Line2D([], [],
-        marker=m, label=b, markersize=6,
-        color="white", mec="black", mew=1, linestyle="None")
+        marker=m, label=b, markersize=4,
+        color="white", mec="black", mew=.5, linestyle="None")
     for b, m in markers.items() ]
 ax.legend(handles=handles,
-    title="Book title",
+    # title="Book title",
     loc="upper left", bbox_to_anchor=(1,1),
     borderaxespad=-0.5, frameon=False,
     labelspacing=0.2, # rowspacing, vertical space between the legend entries
     handletextpad=-0.2, # space between legend marker and label
-    fontsize=9
+    fontsize=6,
 )
 
 
