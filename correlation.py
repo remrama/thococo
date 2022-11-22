@@ -39,11 +39,9 @@ palette = cc.cm.glasbey_dark(range(df["author_id"].nunique()))
 # palette = cc.cm.glasbey_cool(range(df["author_id"].nunique()))
 g = pg.plot_rm_corr(
     data=df, x="wandering", y="IncoherenceMean", subject="author_id",
-    kwargs_facetgrid=dict(
-        height=2, aspect=1,
-        palette=palette,
-        despine=False,
-    )
+    kwargs_facetgrid=dict(palette=palette, height=2, aspect=1, despine=False),
+    kwargs_line=dict(lw=1, alpha=.7),
+    kwargs_scatter=dict(marker="o", s=20, alpha=.7),
 )
 g.ax.set_xticks(range(1, 7))
 # g.ax.set_xlabel(r"More$\leftarrow$Mind-wandering$\rightarrow$Less")
