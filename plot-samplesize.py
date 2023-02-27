@@ -120,8 +120,8 @@ legend = ax.legend(
     handles=handles,
     title=legend_title,
     bbox_to_anchor=(1, 1), loc="upper left",
-    labelspacing=.1, # rowspacing, vertical space between the legend entries
-    handletextpad=0.2, # space between legend marker and label
+    labelspacing=0.1,  # rowspacing, vertical space between the legend entries
+    handletextpad=0.2,  # space between legend marker and label
 )
 legend._legend_box.align = "left"
 

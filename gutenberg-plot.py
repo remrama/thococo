@@ -30,6 +30,10 @@ df["title"] = df["title"].replace({
     "The Merry Adventures of Robin Hood": "Robin Hood",
 })
 
+df = df.query("id.ne('PG141')")
+df = df.query("id.ne('PG2641')")
+df = df.query("id.ne('PG5230')")
+df = df.query("id.ne('PG42324')")
 
 df = df.sort_values("IncoherenceMean", ascending=False)
 
@@ -54,28 +58,28 @@ for book_id, book_df in df.groupby(book_id_column):
     yvals = book_df["IncoherenceMean"].to_numpy()
     # fmt = f"-{m}"
     ax.plot(xvals, yvals, marker=m, label=book_id,
-        mew=.5, lw=.5, ms=4, color="black", mec="black", mfc="white")
+        mew=0.5, lw=0.5, ms=4, color="black", mec="black", mfc="white")
 
-ax.set_ylabel("Though variability\n(semantic incoherence)")
-ax.set_xlabel("Shuffle rate")
-ax.margins(x=.1)
-ax.set_ylim(.43, .61)
+ax.set_ylabel("Semantic incoherence")
+ax.set_xlabel("Proportion of sentences shuffled")
+ax.margins(x=0.1)
+ax.set_ylim(0.43, 0.61)
 # ax.xaxis.set(major_locator=plt.FixedLocator(shuffle_rates))
-ax.xaxis.set(major_locator=plt.MultipleLocator(.5),
-             minor_locator=plt.MultipleLocator(.1))
-ax.yaxis.set(major_locator=plt.MultipleLocator(.05),
-             minor_locator=plt.MultipleLocator(.01))
+ax.xaxis.set(major_locator=plt.MultipleLocator(0.5),
+             minor_locator=plt.MultipleLocator(0.1))
+ax.yaxis.set(major_locator=plt.MultipleLocator(0.05),
+             minor_locator=plt.MultipleLocator(0.01))
 
 handles = [ plt.matplotlib.lines.Line2D([], [],
         marker=m, label=b, markersize=4,
-        color="white", mec="black", mew=.5, linestyle="None")
+        color="white", mec="black", mew=0.5, linestyle="None")
     for b, m in markers.items() ]
 ax.legend(handles=handles,
     # title="Book title",
-    loc="upper left", bbox_to_anchor=(1,1),
+    loc="upper left", bbox_to_anchor=(1, 1),
     borderaxespad=-0.5, frameon=False,
-    labelspacing=0.2, # rowspacing, vertical space between the legend entries
-    handletextpad=-0.2, # space between legend marker and label
+    labelspacing=0.2,  # rowspacing, vertical space between the legend entries
+    handletextpad=-0.2,  # space between legend marker and label
     fontsize=6,
 )
 

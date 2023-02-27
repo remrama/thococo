@@ -16,6 +16,8 @@ import pingouin as pg
 import seaborn as sns
 
 utils.load_matplotlib_settings()
+plt.rcParams["figure.constrained_layout.use"] = False
+
 
 # Declare filepaths.
 deriv_dir = Path(utils.config["derivatives_directory"])
@@ -40,27 +42,30 @@ palette = cc.cm.glasbey_dark(range(df["author_id"].nunique()))
 g = pg.plot_rm_corr(
     data=df, x="wandering", y="IncoherenceMean", subject="author_id",
     kwargs_facetgrid=dict(palette=palette, height=2, aspect=1, despine=False),
-    kwargs_line=dict(lw=1, alpha=.7),
-    kwargs_scatter=dict(marker="o", s=20, alpha=.7),
+    kwargs_line=dict(lw=1, alpha=0.7),
+    kwargs_scatter=dict(marker="o", s=20, alpha=0.7),
 )
-g.ax.set_xticks(range(1, 7))
+g.ax.set_xticks(range(1, 7), minor=True)
+g.ax.set_xticks([1, 6])
+g.ax.set_xticklabels(["not at all", "very much so"])
 # g.ax.set_xlabel(r"More$\leftarrow$Mind-wandering$\rightarrow$Less")
-g.ax.set_xlabel("Mind-wandering\n" + r"More $\longleftrightarrow$ Less", labelpad=-4)
-g.ax.set_ylabel("Thought variability")
-g.ax.yaxis.set(major_locator=plt.MultipleLocator(.5),
-               minor_locator=plt.MultipleLocator(.1))
-g.ax.xaxis.set(major_locator=plt.FixedLocator([1, 6]),
-               minor_locator=plt.MultipleLocator(1))
+g.ax.set_xlabel("Are your thoughts\nwandering around freely?")
+g.ax.set_ylabel("Semantic incoherence")
+g.ax.yaxis.set(major_locator=plt.MultipleLocator(0.5),
+               minor_locator=plt.MultipleLocator(0.1))
+# g.ax.xaxis.set(major_locator=plt.FixedLocator([1, 6]),
+#                minor_locator=plt.MultipleLocator(1))
 # g.ax.tick_params(top=False, bottom=False)
-g.ax.margins(.1)
+g.ax.margins(0.1)
 g.ax.grid(False)
-g.ax.invert_xaxis()
+# g.ax.invert_xaxis()
+plt.tight_layout()
 
 # Draw resulting statistics on the plot.
 r, p = stat.loc["rm_corr", ["r", "pval"]]
-asterisks = "*" * sum( p<cutoff for cutoff in [.05, .01, .001] )
+asterisks = "*" * sum( p<cutoff for cutoff in [0.05, 0.01, 0.001] )
 stat_txt = asterisks + fr"$r$ = {r:.2f}".replace("0.", ".")
-g.ax.text(.5, .95, stat_txt, va="top", ha="center", transform=g.ax.transAxes)
+g.ax.text(0.5, 0.95, stat_txt, va="top", ha="center", transform=g.ax.transAxes)
 
 # Export.
 stat.to_csv(export_path_stat, index_label="method", sep="\t")
