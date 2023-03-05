@@ -49,7 +49,7 @@ markers = { book: all_markers[i] for i, book in enumerate(df[book_id_column].uni
 
 # Plot.
 
-fig, ax = plt.subplots(figsize=(2.7, 2))
+fig, ax = plt.subplots(figsize=(2.4, 2))
 
 for book_id, book_df in df.groupby(book_id_column):
     book_df = book_df.sort_values("shuffle_rate")
@@ -58,7 +58,7 @@ for book_id, book_df in df.groupby(book_id_column):
     yvals = book_df["IncoherenceMean"].to_numpy()
     # fmt = f"-{m}"
     ax.plot(xvals, yvals, marker=m, label=book_id,
-        mew=0.5, lw=0.5, ms=4, color="black", mec="black", mfc="white")
+        mew=0.5, lw=0.5, ms=3, color="black", mec="black", mfc="white")
 
 ax.set_ylabel("Semantic incoherence")
 ax.set_xlabel("Proportion of sentences shuffled")
