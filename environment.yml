@@ -1,0 +1,14 @@
+name: thococo
+dependencies:
+  - ipython                 # development
+  - conda-forge::tqdm       # progress bars
+  - numpy                   # data analysis
+  - pandas                  # data analysis
+  - scipy                   # data analysis
+  - scikit-learn            # data analysis
+  - nltk                    # data analysis - testing
+  - conda-forge::pingouin   # data analysis - statistics
+  - conda-forge::spacy      # data analysis - text
+  - matplotlib              # data visualization
+  - seaborn                 # data visualization
+  - colorcet                # data visualization - colormaps

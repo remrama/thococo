@@ -1,24 +1,27 @@
 """
 Write to a tsv on-the-fly to avoid memory issues.
 """
+
 import argparse
 import csv
-from pathlib import Path
 import zipfile
+from pathlib import Path
 
 import numpy as np
-import pandas as pd
-from sklearn.metrics.pairwise import cosine_distances
 import spacy
+from sklearn.metrics.pairwise import cosine_distances
 from tqdm import tqdm
 
 import utils
 
-
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--corpus", type=str, required=True, choices=utils.config["corpora"])
-parser.add_argument("-o", "--overwrite", action="store_true", help="Overwrite standard file output if it already exists.")
+parser.add_argument(
+    "-o",
+    "--overwrite",
+    action="store_true",
+    help="Overwrite standard file output if it already exists.",
+)
 args = parser.parse_args()
 
 corpus_id = args.corpus
@@ -53,16 +56,18 @@ pipe_kwargs = dict(batch_size=batch_size, as_tuples=True, n_process=1)
 
 lang_model = "en_core_web_lg"
 
+
 # token filter for coherence analysis
 def token_filter(token):
-    return (token.has_vector and token.is_alpha and token.pos_ in ["NOUN", "ADJ", "VERB"]
-        ) and not (token.is_stop or len(token) <= 3 or token.like_num)
+    return (token.has_vector and token.is_alpha and token.pos_ in ["NOUN", "ADJ", "VERB"]) and not (
+        token.is_stop or len(token) <= 3 or token.like_num
+    )
 
 
 # Open a file to write results to line-by-line.
 with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile:
     writer = csv.writer(outfile, delimiter="\t", quoting=csv.QUOTE_NONE)
-    
+
     # Write column header.
     writer.writerow(column_names)
 
@@ -71,24 +76,21 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
     pipe_kwargs["disable"] = ["lemmatizer", "ner"]
 
     with zipfile.ZipFile(import_path, mode="r") as zf:
-        txt_files = [ n for n in zf.namelist() if n.endswith(".txt") ]
-        file_gen = ( (zf.read(fn).decode("utf-8"), utils.parse_text_id(fn)) for fn in txt_files )
+        txt_files = [n for n in zf.namelist() if n.endswith(".txt")]
+        file_gen = ((zf.read(fn).decode("utf-8"), utils.parse_text_id(fn)) for fn in txt_files)
         pbar_kwargs.update(dict(total=len(txt_files)))
-
 
         # #### hack to save out full vector and text chunks
         # #### for visual inspection of text and ability to look at semantic timecourse
         # distance_vects = {}
         # chunks_text = {}
 
-
         # Loop over each document.
         for doc, context in tqdm(nlp.pipe(file_gen, **pipe_kwargs), **pbar_kwargs):
-
             length_scores = {
                 "Ncharacters": len(doc.text),
                 "Ntokens": len(doc),
-                "Nwords": len([ t for t in doc if t.is_alpha ]),
+                "Nwords": len([t for t in doc if t.is_alpha]),
                 "Nnounchunks": len(list(doc.noun_chunks)),
                 "Nsentences": len(list(doc.sents)),
             }
@@ -96,11 +98,11 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
             # if length_scores["Nwords"] < 10:
             #     continue
 
-            length_scores_list = [ length_scores[m] for m in length_metrics ]
+            length_scores_list = [length_scores[m] for m in length_metrics]
 
             ## Coherence section
 
-            vectors = [] # to save summary vectors of each noun chunk
+            vectors = []  # to save summary vectors of each noun chunk
             # chunk_strings = [] # to save each noun chunk
 
             # Loop over each noun chunk of the current document.
@@ -111,8 +113,8 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
                 phrases = doc.sents
             for n in phrases:
                 # Check if more than one noun chunk passes token filtering.
-                if (subgroup_vectors := [ t.vector for t in n if token_filter(t) ]):
-                # if (subgroup_vectors := [ t.vector for t in n if t.has_vector ]):
+                if subgroup_vectors := [t.vector for t in n if token_filter(t)]:
+                    # if (subgroup_vectors := [ t.vector for t in n if t.has_vector ]):
                     # If so, get an average vector for this noun chunk and save it.
                     chunk_vect = np.row_stack(subgroup_vectors).mean(axis=0)
                     vectors.append(chunk_vect)
@@ -123,22 +125,23 @@ with open(export_path, mode=write_mode, encoding="utf-8", newline="") as outfile
                 #     subgroup_text = [ t.text for t in subgroup ]
                 #     vectors.append(np.row_stack(subgroup_vectors).mean(axis=0))
                 #     chunk_strings.append(subgroup_text)
-            
+
             # Get coherence across the chunks, if long enough.
             if len(vectors) > 1:
-
                 # Stack vectors and get similarities
                 arr = np.row_stack(vectors)
                 w2w = cosine_distances(arr).diagonal(offset=1)
                 # w2w = np.array([ distance.cosine(x,y) for x, y in zip(arr[1:], arr[:-1]) ])
 
                 coh_scores = {}
-                coh_scores["IncoherenceN"] = w2w.size # number of coherence values (or 1 less than number of chunks)
+                coh_scores["IncoherenceN"] = (
+                    w2w.size
+                )  # number of coherence values (or 1 less than number of chunks)
                 coh_scores["IncoherenceMean"] = w2w.mean()
                 coh_scores["IncoherenceVar"] = w2w.var()
                 coh_scores["IncoherenceMin"] = w2w.min()
                 coh_scores["IncoherenceMax"] = w2w.max()
-                coh_scores_list = [ coh_scores[m] for m in coherence_metrics ]
+                coh_scores_list = [coh_scores[m] for m in coherence_metrics]
 
                 datarow = context + length_scores_list + coh_scores_list
                 assert len(datarow) == len(column_names)

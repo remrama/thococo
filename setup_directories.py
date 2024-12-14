@@ -2,7 +2,9 @@
 Initialize the data directory structure used throughout the rest of the scripts.
 Directory names are specified in the config.json configuration file.
 """
+
 from pathlib import Path
+
 import utils
 
 deriv_dir = utils.config["derivatives_directory"]
