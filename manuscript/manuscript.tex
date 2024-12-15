@@ -14,7 +14,7 @@
 % -----------------------------------------
 
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
-\usepackage{authblk}
+\usepackage[affil-it]{authblk}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{csquotes}
@@ -26,6 +26,7 @@
 \usepackage[font=small,labelfont=bf,labelsep=period,singlelinecheck=false]{caption} % captions
 \usepackage[backend=biber,style=nature,date=year,hyperref=false]{biblatex} % references
 \usepackage[final,hyperfootnotes=false,hyperfigures=false,hidelinks]{hyperref} % hyperlinks
+\usepackage{orcidlink} % ORCID iDs
 \addbibresource{references.bib}
 
 
@@ -40,15 +41,17 @@
 % Title page metadata
 % -----------------------------------------
 
+\renewcommand\Authands{, \& }
+
 \title{\bf Cognitive control and semantic thought variability\\across sleep and wakefulness}
-\author[1]{Remington Mallett\thanks{correspondence: \href{mailto:mallett.remy@gmail.com}{\texttt{mallett.remy@gmail.com}}}}
-\author[1]{Yasmeen Nahas}
-\author[2]{Kalina Christoff}
-\author[1]{Ken A. Paller}
-\author[3]{Caitlin Mills}
-\affil[1]{Department of Psychology, Northwestern University, Evanston, IL, USA}
-\affil[2]{Department of Psychology, University of British Columbia, Vancouver, BC, CA}
-\affil[3]{Department of Educational Psychology, University of Minnesota, Minneapolis, MN, USA}
+\author[1]{Remington~Mallett~\orcidlink{0000-0001-6183-3098}\thanks{correspondence:~\href{mailto:mallett.remy@gmail.com}{\texttt{mallett.remy@gmail.com}}}}
+\author[1]{Yasmeen~Nahas}
+\author[2]{Kalina~Christoff~\orcidlink{0000-0003-2841-8647}}
+\author[1]{Ken~A.~Paller~\orcidlink{0000-0003-4415-4143}}
+\author[3]{Caitlin~Mills~\orcidlink{0000-0003-4498-0496}}
+\affil[1]{Department~of~Psychology, Northwestern~University, Evanston,~IL,~USA}
+\affil[2]{Department~of~Psychology, University~of~British~Columbia, Vancouver,~BC,~CAN}
+\affil[3]{Department~of~Educational~Psychology, University~of~Minnesota, Minneapolis,~MN,~USA}
 \date{}
 
 
