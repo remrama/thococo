@@ -1,16 +1,23 @@
+% -----------------------------------------
+% thococo manuscript
+% ------------------
+% GitHub repository: https://github.com/remrama/thococo
+% PsyArXiv preprint: https://doi.org/10.31234/osf.io/k8mnc
+% To be published in Philosophy and the Mind Sciences
+% -----------------------------------------
+
 \documentclass[10pt,a4paper,twocolumn]{article}
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Modify page layout
-% -------------------------------------------------------------------------------------
-
-\setlength{\columnsep}{.5cm}
+% -----------------------------------------
 
 
-% -------------------------------------------------------------------------------------
+
+% -----------------------------------------
 % Load packages
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{authblk}
@@ -25,14 +32,14 @@
 \usepackage[font=small,labelfont=bf,labelsep=period,singlelinecheck=false]{caption} % captions
 \usepackage[backend=biber,style=nature,date=year,hyperref=false]{biblatex} % references
 \addbibresource{references.bib}
-% \usepackage{setspace} % allows setting it after abstract and wherever else within document
-\usepackage{hyperref} % hyperlinks
-% \hypersetup{nolinks=true}
+% \usepackage{setspace} % to adjust line spacing
+\usepackage[final,hyperfootnotes=false,hidelinks]{hyperref} % hyperlinks
 
+\setlength{\columnsep}{.5cm}
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Title page metadata
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \title{\bf Cognitive control and semantic thought variability\\across sleep and wakefulness}
 \author[1]{Remington Mallett\thanks{correspondence: \href{mailto:mallett.remy@gmail.com}{\texttt{mallett.remy@gmail.com}}}}
@@ -47,12 +54,12 @@
 
 
 \begin{document}
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Title page
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \maketitle
 
@@ -64,9 +71,9 @@ The flow of thought is persistent, and at times merciless. Mental content is gen
 \textbf{Keywords:} \textit{spontaneous thought}, \textit{mind-wandering}, \textit{dreaming}, \textit{creativity}, \textit{natural language processing}
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Introduction
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \section*{Introduction}
 
@@ -88,14 +95,15 @@ One route to studying cognitive control is through lucid dreaming. Most dreams o
 In the current study, we hypothesized that conditions typically associated with relatively increased cognitive control in both sleep and waking would be associated with narrowed thought trajectories (i.e., reduced semantic thought variability), as predicted by the Dynamic Framework of Thought. We quantified thought variability in waking and dreaming thoughts that varied in their amount of self-reported cognitive control. Waking thoughts were reported throughout the day along with two distinct self-reported measures of mind-wandering: task-unrelatedness and the freedom of movement in thought~\cite{mills2021,mills2018a}. High and low cognitive control in waking were viewed as on- and off-task thought, respectively. Dreaming thoughts were reported in an online dream journal along with self-reported levels of lucidity~\cite{schredl2022}. High and low cognitive control in sleep were viewed as lucid and non-lucid dreams, respectively. In both these datasets, thought variability was operationalized as the semantic incoherence between moment-to-moment thoughts as they unfolded over time~\cite{bedi2015,corcoran2020,elvevag2007}. Based on the Dynamic Framework of Thought~\cite{christoff2016} and the Default Variability Hypothesis~\cite{mills2018}, we expected that cognitive control would constrain thought variability, decreasing semantic incoherence (i.e., lowering thought variability) when cognitive control increased.
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Methods
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \begin{figure*}[t]
     \centering
     \includegraphics{figure1.pdf}
-    \caption{\textbf{Semantic incoherence as a measure of thought variability.} Thought variability is measured by generating a single semantic representation of each thought, finding the semantic distance between each consecutive thought pair, and averaging those distances together. Shaded boxes represent relative numerical values and are for illustrative purposes only. Example text is a haiku written by Tracy Davidson (\url{https://classicalpoets.org/2021/09/05/the-21-best-haiku-of-2021}).}
+    % \caption{\textbf{Semantic incoherence as a measure of thought variability.} Thought variability is measured by generating a single semantic representation of each thought, finding the semantic distance between each consecutive thought pair, and averaging those distances together. Shaded boxes represent relative numerical values and are for illustrative purposes only. Example text is a haiku written by Tracy Davidson~\cite{tracy2021}.}
+    \caption{\textbf{Semantic incoherence as a measure of thought variability.} Thought variability is measured by generating a single semantic representation of each thought, finding the semantic distance between each consecutive thought pair, and averaging those distances together. Shaded boxes represent relative numerical values and are for illustrative purposes only. Example text is a haiku written by Tracy Davidson\protect\footnotemark.}
     \label{fig:methods}
 \end{figure*}
 
@@ -106,9 +114,12 @@ Our general approach was to aggregate subjective reports of waking thoughts and 
 
 \subsection*{Waking-thoughts dataset}
 To capture waking thoughts under variable levels of cognitive control in daily life, we used experience samples from an ecological momentary assessment study~\cite{mills2021}. Participants reported their thoughts up to 6 times per day for one week in response to text message prompts. Participants were told---upon receiving a phone alert---to ``take a mental snapshot of what they were thinking about just before they saw the probe'' and then answer some questions regarding that mental snapshot. They were asked: (1) A free-text description of their ongoing thoughts: ``Please provide a brief description of your most recent stream of thought based on the mental snapshot.'' (2) A report on task-unrelatedness, or whether those thoughts were on- or off-task: ``Are you thinking about something other than what you are currently doing? Answer with either a \textit{Y} or an \textit{N}.'' (3) A report on a 6-point Likert scale about freedom of movement in thought, or how much those thoughts were freely moving: ``Are your thoughts wandering around freely? Answer on a scale from 1 (\textit{not at all}) to 6 (\textit{very much so}).'' The second and third measures have been used to assess mind wandering in previous studies and are tied to constructs of constraints and executive control~\cite{mills2018a}. See Study 1 of Mills et al.~\cite{mills2021} for additional details regarding this dataset, including sample information and additional measures that were collected. After text preprocessing (see below), the final sample included $46$ participants. For the comparison of on- and off-task thoughts, the sample was further reduced to participants who reported both $\ge 1$ on-task thought and $\ge 1$ off-task thought ($\mathit{N}=44$).
+\footnotetext{\url{https://classicalpoets.org/2021/09/05/the-21-best-haiku-of-2021}}
+% \footnotetext{\url{https://classicalpoets.org/2021/07/28/haiku-competition-2021/#comment-479800}}
 
 \subsection*{Dream dataset}
-To capture dreams (i.e., sleeping thoughts) under variable levels of cognitive control, we used dream reports from a public online dream journal~\cite{schredl2022} (\url{https://www.dreamviews.com/blogs}). All dream-journal entries on this site include the option to tag the dream as lucid and/or nonlucid. We started with all dream reports where the author specified that the dream was either only lucid or only nonlucid, and then reduced the dataset further to only include authors who reported at least one or more of both dream types. After subsequent text preprocessing (see below), the final sample was reduced to authors who reported both $\ge 1$ lucid dream and $\ge 1$ nonlucid dream ($\mathit{N}=1199$).
+To capture dreams (i.e., sleeping thoughts) under variable levels of cognitive control, we used dream reports from a public online dream journal\footnote{\url{https://www.dreamviews.com/blogs}}~\cite{schredl2022}. All dream-journal entries on this site include the option to tag the dream as lucid and/or nonlucid. We started with all dream reports where the author specified that the dream was either only lucid or only nonlucid, and then reduced the dataset further to only include authors who reported at least one or more of both dream types. After subsequent text preprocessing (see below), the final sample was reduced to authors who reported both $\ge 1$ lucid dream and $\ge 1$ nonlucid dream ($\mathit{N}=1199$).
+
 
 \subsection*{Semantic incoherence as a measure of thought variability}
 To quantify the amount of thought variability within a given text report, we calculated the amount of semantic incoherence of each text~\cite{bedi2015,elvevag2007}, as shown in Figure~\ref{fig:methods}. This method relies on the extraction of semantic embeddings, which are numerical representations of words that capture their contextual meanings. These embeddings, or numerical vector representations, are derived from word co-occurrence patterns identified in large text corpora. In the current study, (1) each text report was segmented into individual phrases, (2) 300-dimensional semantic embeddings were extracted for each noun, verb, and adjective with four or more letters, (3) each phrase was summarized as the average semantic embedding of words within each phrase, (4) the cosine distance between each pair of consecutive phrases was calculated, and (5) the average of all cosine distances was the final measure of thought variability. Dream reports were segmented into sentence phrases, whereas mind-wandering reports were segmented into noun-chunk phrases (i.e., a noun and its surrounding context) due to their lack of clear punctuation or sentence structure. Any text without more than one phrase was removed. Text preprocessing, part-of-speech tagging, and semantic embedding extraction were performed using the spaCy Python package~\cite{montani2023}, where the language embedding space was trained on a large variety of English language sources including Wikipedia, news articles, and movie subtitles (spaCy \textit{en\_core\_web\_lg} model v3.4.1). Semantic incoherence thought scores were averaged within each participant and condition for all pairwise comparisons. Prior analyses have yielded a thorough validation of this method~\cite{bedi2015,elvevag2007}, justifying its extensive use in computational psychiatry~\cite{corcoran2020a,deboer2018}.
@@ -117,9 +128,9 @@ To quantify the amount of thought variability within a given text report, we cal
 All statistical analyses were performed using within-subject comparisons. A repeated-measures correlation was used to test the relationship between semantic incoherence and self-reported freedom of movement in thought during waking~\cite{bakdash2017}. Semantic incoherence of on- and off-task thoughts were compared within subjects using a Wilcoxon signed-rank test. Semantic incoherence of lucid and nonlucid dreams were compared within subjects using a Wilcoxon signed-rank test. Effect sizes for pairwise tests were reported using the Common Language Effect Size (CLES)~\cite{vargha2000}. All statistical analyses were conducted using the Pingouin Python package~\cite{vallat2018}.
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Results
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \begin{figure*}[t]
     \centering
@@ -137,9 +148,9 @@ We observed a positive correlation between self-reported freedom of movement in 
 We observed higher semantic incoherence scores ($\mathit{W}=335118$, $\mathit{p}=.040$, $\mathit{CLES}=0.510$) in nonlucid ($\mathit{Mdn}=0.513$, $\mathit{M}=0.510$, $\mathit{SD}=0.065$) than lucid dream reports ($\mathit{Mdn}=0.510$, $\mathit{M}=0.507$, $\mathit{SD}=0.074$), suggesting that thoughts move more freely during nonlucid dreams (Figure~\ref{fig:results}C).
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Discussion
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \section*{Discussion}
 
@@ -173,9 +184,9 @@ We did not compare thought variability directly between waking and dreaming. The
 The flow of thought is relentless. Mental contents are generated during almost all waking hours and reappear during sleep, but only a subset of these thoughts arise predictably and with conscious intent. Here, we show that thoughts are more predictable, at least content-wise, when supported by cognitive control, and that this principle is present during both waking and dreaming thought. Impairments in the ability to constrain thought variability and thought's moment-to-moment movement may be one of the major factors that underlie clinically significant alterations in spontaneous thought. Furthermore, understanding the processes by which cognitive control reduces the erratic nature of thought might offer insights to support the development of future therapies.
 
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 % Declarations and References
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 
 \section*{Declarations}
 
@@ -187,5 +198,5 @@ The flow of thought is relentless. Mental contents are generated during almost a
 
 \printbibliography
 
-% -------------------------------------------------------------------------------------
+% -----------------------------------------
 \end{document}
